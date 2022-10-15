@@ -1,0 +1,81 @@
+server:
+  #端口
+  port: 8081
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yeb?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    hikari:
+      pool-name: DataHikariCP
+      #最小空闲连接数
+      minimum-idle: 5
+      #最大连接时间 默认10分组（600000）
+      idle-timeout: 18000
+      #最大连接数
+      maximum-pool-size: 10
+      #从连接池返回的时间自动提交
+      auto-commit: true
+      #连接最大存活时间，0表示永久存活，默认1800000（30分组）
+      max-lifetime: 1800000
+      #连接超时时间,默认30000
+      connection-timeout: 30000
+      #测试查询可用的查询语句
+      connection-test-query: SELECT 1
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+    #消息确认回调
+    publisher-confirm-type: correlated
+    #消息失败回调
+    publisher-returns: true
+  redis:
+    #超时时间
+    timeout: 10000ms
+    #服务器地址
+    host: localhost
+    #端口号
+    port: 6379
+    #数据库
+    database: 0
+    password: root
+    lettuce:
+      pool:
+        #最大连接数
+        max-active: 1024
+        #最大连接阻塞等待时间 默认-1
+        max-wait: 10000ms
+        #最大连接
+        max-idle: 200
+        #最小空闲连接
+        min-idle: 5
+
+
+
+
+
+#  mybatis-plus 设置
+mybatis-plus:
+  #关联mapper文件
+  mapper-locations: classpath:/mapper/*.xml
+  #默认别名类名
+  type-aliases-package: com.wdd.server.pojo
+  configuration:
+    #关闭驼峰命名
+    map-underscore-to-camel-case: false
+
+
+jwt:
+  #JWT的储存头
+  tokenHeader: Authorization
+  #JWT加密用的密钥
+  secret: yeb-secret
+  #超时时间
+  expiration: 604800
+  #JWt负载中拿到的头
+  tokenHead: Bearer
